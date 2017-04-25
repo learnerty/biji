@@ -1,4 +1,3 @@
-
 git clone [url]   克隆
 
 git status    查看仓库状态
@@ -45,7 +44,7 @@ nvm ls-remote  从远端查看nodejs的版本
 
 nvm install 版本号  下载安装最新的nodejs版本
 
-自动会把npm装上，npm是管理nodejs的
+自动会把npm装上，npm是最大的nodejs的包管理工具
 
 nvm use 版本 切换node的版本
 
@@ -58,18 +57,21 @@ nvm uninstall 版本  卸载nodejs
 
 h标签  #h1  ##h2  以此类推
 
+
+
+无序列表 - 或 *
 - 无序列表
 - 无序列表
 - 无序列表
 
-
+有序列表  数字
 1. 有序列表
 1. 有序列表
 1. 有序列表
 
-<pre></pre>块标签  保证语法格式
+块标签  保证语法格式<pre></pre>
 
-<code></code>放在pre标签里
+放在pre标签里<code></code>
 
 
 .md文件  块标签   写什么语法就在后面写什么
@@ -79,14 +81,15 @@ console.log('aaa');
 ```
 我是一个变量`window`
 
+粗体  左右两个星号或者下划线
 
 这样可以加粗**我是粗体**
 
-这样可以加粗__我是粗体__
+
+斜体  左右一个星号或者下划线
 
 这样可以倾斜*我是倾斜*
 
-这样可以倾斜_我是倾斜_
 
 
 l + tab   a标签
@@ -99,7 +102,7 @@ l + tab   a标签
 ![img](http://pic.58pic.com/58pic/12/81/74/96458PICi7U.jpg)
 
 
-分割线
+分割线 三个星号
 ***
 
 
