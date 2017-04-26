@@ -1,3 +1,11 @@
+#### call 和 apply
+语法：foo.call(this, arg1,arg2,arg3) == foo.apply(this, arguments) == this.foo(arg1, arg2, arg3);
+
+apply：应用某一对象的一个方法，用另一个对象替换当前对象。例如：B.apply(A, arguments);即A对象应用B对象的方法。 apply：最多只能有两个参数——新this对象和一个数组argArray。
+
+call：调用一个对象的一个方法，以另一个对象替换当前对象。例如：B.call(A, args1,args2);即A对象调用B对象的方法。 call：它可以接受多个参数，第一个参数与apply一样，后面则是一串参数列表。
+
+
 let 自带作用域，代替var,在同一作用域不可以重复声明,没有声明提升
 
 const 常量，只能读不能写,可以改变对象内的属性，不可以直接改变定义的值
@@ -101,6 +109,11 @@ restFunc(1,2,3,4)
   console.log(acc,cur);
   return acc + cur;
 })
+let arr = [12,65,23,15,9];
+let max = arr.reduce ((acc,cur) => {
+  return acc>cur? acc : cur
+})
+console.log(max);
 ```
 #### 展开操作符
 ```js
@@ -185,4 +198,61 @@ let arr = [
 ]
 let index = arr.findIndex(item =>item.age ===13)
 console.log(index)
+```
+
+#### throw new Error 主动报错，抛出错误
+
+#### class
+语法  constructor(参数){私有属性}  首字母大写
+```js
+class Point {
+  constructor(x, y) {
+    // 属性全部放在这里
+  }
+  // 方法 不能用逗号隔开
+  toString() {
+
+  }
+}
+```
+
+#### 继承关键字  extends  
+把私有属性也会继承过来,子类必须要加super()
+```js
+class Po{
+  constructor(x){
+    this.x = x;
+  }
+  toString(){
+    console.log('Po toString');
+  }
+}
+
+class Po1 extends Po{
+  constructor(a,b,x){
+    super(x);
+    this.a = a;
+    this.b = b;
+  }
+  say(){
+    console.log('Po1 say');
+  }
+}
+var p = new Po1(5,6,7);
+console.log(p);
+p.toString();
+p.say();
+```
+
+```js
+class [name]{}  //定义类
+class [name] extends [fathername]{}  //继承类
+class [name] extends [fathername]{  //子类定义constructor必须先super()
+  constructor(){
+    super()
+  }
+}
+class内只能写一个个的方法，方法与方法之间什么都不加，不可以有逗号
+class的名字首字母大写
+class内的方法内部就一切正常了，想写什么写什么
 ```
