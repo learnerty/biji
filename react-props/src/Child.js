@@ -1,13 +1,13 @@
 import React from 'react';
 
-class Footer extends React.Component{
+class Child extends React.Component{
   render(){
     return (
       <div>
-        <h2>我是尾部</h2>
+        {this.props.children}
       </div>
     )
   }
 }
 
-export default Footer;
+export default Child

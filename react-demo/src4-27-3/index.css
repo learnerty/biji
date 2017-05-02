@@ -1,0 +1,34 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.clearfix::after{
+  content: ' ';
+  display: block;
+  clear: both;
+}
+#root{
+  max-width: 730px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.li_left{
+  float: left;
+  list-style: none;
+}
+.marketing{
+  width: 100%;
+  margin-top: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #ccc;
+}
+.header{
+  margin-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+}
+.header a:hover{
+  background: #ccc;
+}

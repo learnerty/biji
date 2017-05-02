@@ -256,3 +256,20 @@ class内只能写一个个的方法，方法与方法之间什么都不加，不
 class的名字首字母大写
 class内的方法内部就一切正常了，想写什么写什么
 ```
+
+#### .assign
+Object.assign方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）,Object.assign方法的第一个参数是目标对象，后面的参数都是源对象 ，如果有相同的属性，后面的会把前面的覆盖掉
+```js
+var target = { a: 1};
+var source1 = { b : 2};
+var source2 = { c : 3};
+Object.assign(target, source1 , source2);
+console.log(target); //Object {a: 1, b: 2, c: 3}
+```
+
+includes() 方法用来判断当前数组是否包含某指定的值，如果是，则返回 true，否则返回 false
+```js
+var a = [1, 2, 3];
+a.includes(2); // true
+a.includes(4); // false
+```

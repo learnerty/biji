@@ -27,6 +27,8 @@ npm install [packagename] [--save]
 
 npm install -g create-react-app
 
+create-react-app 名称  创建
+
 create-react-app --version  查看版本
 
 create-react-app --help   查看帮助

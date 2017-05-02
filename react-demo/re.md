@@ -27,10 +27,8 @@ var hello = React.createElement(
 );
 ```
 
-Adjacent JSX elements must be wrapped in an enclosing tag 相邻的JSX元素必须包裹在一个闭合标签内
-
-每一个标签必须闭合Unterminated JSX contents
-
+Adjacent JSX elements must be wrapped in an enclosing tag 相邻的JSX元素必须包裹在一个闭合标签内  
+每一个标签必须闭合Unterminated JSX contents  
 class要写成className  for写成htmlFor
 
 标签区分大小写
@@ -52,7 +50,7 @@ let Hello = React.createClass({
   }
 })
 // ReactDOM.render(<Hello></Hello>, document.querySelector('#root'))
-ReactDOM.render(<Hello />, document.querySelector('#root'))
+ReactDOM.render(<Hello />, document.querySelector('#root'),function(){console.log('回调函数');})
 ```
 2. function(){}
 ```js
@@ -85,3 +83,97 @@ class Hello extends React.Component{
 }
 ```
 render(){} === render:function(){}
+
+引入本地图片也和引入模块一样，把图片当做模块引入 例如：import img from './avater.jpg' 网上的图片直接写图片地址
+
+
+引入css文件可以直接引入  `import './xxx.css'`
+
+#### 行内样式
+style = {{}}  
+style = 一个对象 {属性名:'属性值',属性名:'属性值'}，因为对象是js语句，JSX语法不能写js语句，所以在对象外面用一对大括号包裹起来，遵循驼峰命名法，如fontSize
+
+三种写行内样式的方法,还可以在外部导入变量
+```js
+import {red, style} from './style'
+class Main extends React.Component{
+  getStyles(){
+    return ({
+      textAlign: 'center'
+    })
+  }
+  render(){
+    let styles = {
+      textAlign: 'center'
+    }
+    return (
+      <div>
+        <h2 style = {{textAlign:'center',color:red}}>我是身体1</h2>
+        <h2 style = {styles}>我是身体2</h2>
+        <h2 style = {this.getStyles()}>我是身体3</h2>
+        <h2 style = {style}>我是导入的样式</h2>
+      </div>
+    )
+  }
+}
+```
+
+在JSX语法中，写注释要用大括号包起来  `{/* */}` ctrl + / 快捷键
+
+对象合并  
+Object.assign({},styles.common,styles.spec)  
+创建一个新的对象，把后面的所有的对象的属性赋值给空对象，相同的属性，后面的会覆盖前面的
+
+
+
+#### 状态
+state  是一个异步操作，不会阻断进程  
+名称必须是state,与setstate对应，state是一个对象，setstate()是一个方法  bind(this)绑定一个this
+```js
+class App extends React.Component{
+  constructor(){
+    super();
+    this.state = {
+      num:0
+    }
+  }
+  handleClick(num){
+    this.setState({
+      num: this.state.num + num
+    })
+  }
+  render(){
+    return (
+      <div className='app'>
+        <p>数量是: {this.state.num}</p>
+        <button onClick={this.handleClick.bind(this,1)}>+1</button>
+        <button onClick={this.handleClick.bind(this,-1)}>-1</button>
+      </div>
+    )
+  }
+}
+```
+
+#### 计时器
+用this.interval代替let interval  
+clearInterval(this.interval)  
+this.interval=setInterval(()=> this.setState({num:this.state.num+1}),1000)
+
+
+#### vw可视窗口的宽度 vh可视窗口的高度
+100vw 100%可视窗口的宽度    100vh 100%可视窗口的高度
+
+#### 垂直居中
+```css
+.play{
+  display: flex;   //变成弹性盒子
+  align-items: center;   //垂直居中
+}
+.play>div{
+  flex-grow: 1;   //加在子元素上
+}
+```
+
+#### 下面的也是if判断
+let cc = 6;  
+cc && cc==6 && alert('aaa');console.log('qqq')
