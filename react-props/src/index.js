@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App'
-
-ReactDOM.render(<App />,document.getElementById('root'))
+import App from './App';
+import Events from './Events';
+import Form from './Form';
+import MForm from './MForm';
+ReactDOM.render(<MForm name="aa"/>,document.querySelector('#root'))

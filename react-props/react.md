@@ -32,3 +32,120 @@ Btn.propTypes = {
 </Child>
 {this.props.children}
 ```
+
+#### 生命周期函数
+`默认执行，不需要调用`  
+##### 初始化,首次挂载
+constructor() 获取默认属性  执行顺序最高,如果要从constructor中获得props，需要
+```js
+constructor(props){
+  super(props);
+}
+```
+componentWillMount()  首次渲染之前  
+render() 渲染  必须写，必须有返回值，返回值为JSX节点   
+componentDidMount()  首次渲染之后  
+
+##### 更新
+修改props,通过setState修改state会触发组件的更新阶段  
+componentWillReceiveProps(nextProps)  组件将要收到新的props属性发生变化，就会触发更新(父级传入的props发生变化，而且必须是父级控制的state发生变化)   
+shouldComponentUpdate(nextProps, nextState)  判断是否需要更新，必须返回一个布尔值 返回true更新，false阻止更新
+componentWillUpdate(nextProps, nextState)   更新之前  nextState下一个状态   
+render() 渲染  
+componentDidUpdate(prevProps, prevState)   更新之后   prevState更新成功之前的状态  
+##### 销毁
+componentWillUnmount()
+
+
+
+#### 表单
+e.target  触发事件的目标
+```js
+constructor(){
+  super();
+  this.state={
+    input:''
+  }
+}
+handleSubmit(e){
+  e.preventDefault()  //阻止跳转
+  e.target.reset()    //清空表单数据,用状态控制无法清空
+}
+handleChange(e){
+  console.log(e.target.value);
+  this.setState({input:e.target.value})
+}
+<form onSubmit={this.handleSubmit.bind(this)}>
+  <input placeholder='name' value={this.state.input} onChange={this.handleChange.bind(this)}/>
+  <button>提交</button>
+</form>
+```
+defaultValue 非受控的，只能通过设置ref获得值
+
+文本域  下拉菜单
+```js
+textarea(e){
+  this.setState({textarea:e.target.value})
+}
+<textarea value={this.state.textarea} onChange={this.textarea.bind(this)}/>
+
+handleSelect(e){
+  this.setState({select:e.target.value})
+}
+<select value={this.state.select} onChange={this.handleSelect.bind(this)}>
+  <option value="gr">Gr</option>
+  <option value="hr">Hr</option>
+</select>
+
+handleRadio(e){
+  this.setState({radio:e.target.value})
+}
+男<input name="goodRadio" type="radio" value="boy" onChange={this.handleRadio.bind(this)}/>
+女<input name="goodRadio" type="radio" value="gril" onChange={this.handleRadio.bind(this)} defaultChecked/>
+```
+多选
+```js
+handleCheck(e){
+  this.setState({checkbox:e.target.checked})
+}
+<input type="checkbox" checked={this.state.checkbox} onChange={this.handleInput.bind(this)} name="checkbox"/>
+```
+
+
+声明一个对象时，属性名也可以是一个变量，用方括号包裹
+```js
+let prop = 'aaa';
+let obj = {[prop] : 888}
+let obj1[prop] = 888;
+```
+
+所以可以把上面的一堆方法整合
+```js
+handleSubmit(e){
+  e.preventDefault();
+}
+handleInput(e){
+  let target = e.target;
+  console.log(target.name);
+  let value = target.name==='checkbox' ? target.checked : target.value
+  console.log(value);
+  this.setState({
+    [target.name] : value
+  })
+}
+<form onSubmit={this.handleSubmit.bind(this)}>
+  <input value={this.state.input} onChange={this.handleInput.bind(this)} name="text"/>
+  <textarea value={this.state.textarea} onChange={this.handleInput.bind(this)} rows="5" cols="20" name="textarea"/>
+  <select value={this.state.select} onChange={this.handleInput.bind(this)} name="select">
+    <option value="gr">Gr</option>
+    <option value="hr">Hr</option>
+  </select>
+  <br/>
+  同意<input type="checkbox" checked={this.state.checkbox} onChange={this.handleInput.bind(this)} name="checkbox"/>
+  <br/>
+  男<input name="goodRadio" type="radio" value="boy" onChange={this.handleInput.bind(this)}/>
+  女<input name="goodRadio" type="radio" value="gril" onChange={this.handleInput.bind(this)} defaultChecked/>
+  <br/>
+  <button>提交</button>
+</form>
+```
