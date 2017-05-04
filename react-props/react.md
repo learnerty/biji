@@ -149,3 +149,29 @@ handleInput(e){
   <button>提交</button>
 </form>
 ```
+
+trim() 去掉字符串首尾的空格  
+<input type='number'/>  只能输入数字  
+<input type='range' max='100' min='10'/>  滑动条
+
+#### JSON
+JSON格式最后一项不能加括号，数据类型永远是字符串   
+JSON.stringify() 把正常的js对象或数组转换成JSON字符串
+```js
+let obj = {name:'tian'};
+console.log(JSON.stringify(obj));
+```
+JSON.parse()  把JSON对象转换成正常的js变量
+```js
+let jsonStr = '{"name":"tian"}';
+let o = JSON.parse(jsonStr);
+```
+
+保存一个本地的储存
+localStorage.aaa=‘ooo’  
+localStorage.setItem('aaa','ooo')
+获得本地储存的数据
+localStorage.aaa   
+localStorage.getItem('aaa')
+删除本地缓存  
+localStorage.removeItem('aaa')
