@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    fetch('https://api.github.com/users/learnerty')  //请求完成
+      .then(function(response) {   //拿到后台返回的响应
+        return response.json()    //转换成json数据
+      }).then(function(json) {
+        console.log('parsing json', json)
+      }).catch(function(ex) {   //失败
+        console.log('parsing failed', ex)
+      })
+
+      function myfetch(){
+        return new Promise(function(resolve,reject){
+          setTimeout(function(){
+            resolve({name:'qqq'})
+          },3000)
+        })
+      }
+      myfetch().then(function(data){
+        console.log('.then',data);
+      }).catch(function(){
+        console.log('.catch');
+      })
+  </script>
+</body>
+</html>

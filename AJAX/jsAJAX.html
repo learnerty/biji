@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id='box'>
+
+  </div>
+  <script type="text/javascript">
+    var xml = new XMLHttpRequest();
+    xml.onreadystatechange=function(){
+      if(xml.readyState===4&&xml.status===200){
+        console.log('json========'+xml.responseText);
+        let data = JSON.parse(xml.responseText);
+        console.log('obj========'+data);
+        // box.innerText = data.login;
+      }
+    }
+    // xml.open('GET','https://api.github.com/users/learnerty',true);
+    // xml.send();
+    xml.open('POST','https://cnodejs.org/api/v1/accesstoken',true)
+    xml.setRequestHeader("Content-type","application/json");
+    let data = {
+      accesstoken: '3f77acb1-d753-4393-b784-44913190e6a8'
+    }
+    xml.send(JSON.stringify(data));
+  </script>
+</body>
+</html>

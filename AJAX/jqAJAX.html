@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="box"></div>
+  <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    // $.ajax({
+    //   type:'GET',//默认为GET
+    //   url:'https://cnodejs.org/api/v1/topics',
+    //   success:function(data){  //success成功后，会自动把后台返回的json转换成对象
+    //     console.log(data);
+    //   }
+    //   error:function(error){
+    //     console.log(error);
+    //   }
+    // })
+    // $.get('https://cnodejs.org/api/v1/topics', function( data ) {
+    //   console.log(data);
+    // });
+
+    $.ajax({
+      // method:'POST',
+      // dataType:'json',  //期望后台返回的数据类型
+      // contentType:'application/json', //发往后台的数据类型
+      url:'https://api.douban.com/v2/book/1220562',
+      dataType:'jsonp',
+      jsonp:'callback',
+      // data:JSON.stringify({accesstoken: '3f77acb1-d753-4393-b784-44913190e6a8'})
+    }).done(function(data){
+      console.log(data);
+    }).fail(function(err){
+      console.log(err);
+    }).always(function(){
+      console.log('ajax');
+    })
+  </script>
+</body>
+</html>
