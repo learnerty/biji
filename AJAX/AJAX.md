@@ -88,4 +88,6 @@ fetch('https://api.github.com/users/learnerty')  //请求完成
 ```js
 axios.get('https://api.github.com/users/learnerty')
   .then(res => console.log(res))
+  .catch(err => alert(err))
+axios.post('https://cnodejs.org/api/v1/accesstoken',{accesstoken:token})
 ```

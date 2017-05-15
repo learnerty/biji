@@ -1,4 +1,7 @@
-git clone [url]   克隆
+sudo apt-get install git curl atom   下载git, curl, atom软件
+sudo apt-get update   更新
+
+git clone [url]   克隆到本地
 
 git status    查看仓库状态
 
@@ -38,7 +41,7 @@ git push -u origin master
 
 安装node
 
-先在github上安装nvm
+先在github上安装nvm  
 
 nvm ls-remote  从远端查看nodejs的版本
 
