@@ -1,0 +1,37 @@
+body{
+  font-size: 14px;
+}
+.my-wrap{
+  display: flex;
+  height: 100vh;
+  flex-direction:column;
+}
+header,footer{
+  height: 80px;
+  background-color : #FF4500;
+  flex-shrink: 0;
+  display: flex;
+}
+header{
+  justify-content:space-between;
+  padding: 0 10px;
+  align-items:center;
+  color: #fff;
+}
+footer{
+  align-items: center;
+  text-align: center;
+}
+footer a{
+  flex-basis: 25%;
+  color:#fff;
+  border-right: 1px solid #eee;
+  font-size: 18px;
+}
+footer a:last-child{
+  border: none;
+}
+.main{
+  flex-grow: 1;
+  overflow-y: auto;
+}

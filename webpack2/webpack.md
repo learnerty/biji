@@ -136,8 +136,8 @@ const OpenBrowserPlygin = require('open-browser-webpack-plugin');
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname,"build"),
-    filename: "bundle.[hash:5].js"
+    filename: "bundle.[hash:5].js",   如果有路径，路径地址/文件名
+    publicPath: '/'
   },
   devServer: {
     contentBase: path.join(__dirname, "build"),   静态文件服务器，build下的文件都可以通过localhost:3000/名称 访问到
