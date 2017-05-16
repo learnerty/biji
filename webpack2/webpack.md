@@ -15,7 +15,7 @@ webpack src/index.js build/bundle.js --- webpack 入口文件 出口文件
 ```
 
 
-### 用配置文件配置(推荐)
+### 生产环境配置，用配置文件配置(推荐)
 如果想要支持es6 和JSX 语法，首先要安装babel  
 `npm install --save-dev babel-loader babel-core`  
 使用es6语法需要装包babel-preset-env  
@@ -29,24 +29,31 @@ webpack src/index.js build/bundle.js --- webpack 入口文件 出口文件
 }
 ```
 要导入css文件需要装两个包，如果安装了postcss-loader包，则不需要装css-loader包  
-`npm i --save-dev style-loader css-loader`
+`npm i --save-dev style-loader css-loader`  
+将jquery暴露成全局变量  
+先装包，后再rules里设置  
+`npm i -D expose-loader`  
+打包前先删除存放文件的文件夹，需先装包，然后在packges.json配置
+`npm i -D rimraf`
 #### packges.json
 ```
 "scripts":{
-  "bulid": "./node_modules/.bin/webpack"
+  "bulid": "rimraf build && ./node_modules/.bin/webpack"
 }
 ```
+先删除build然后执行
 #### webpack.config.js
 ```
 const path = require('path');   nodejs的核心模块
 var webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {   模块接口
   entry: './src/index.js',     要打包的文件，入口文件
   output: {     打包到哪里，出口文件
     path: path.resolve(__dirname,"build"),  __dirname代表webpack.config.js的绝对路径  拼接build文件夹，形成路径
     filename: "bundle.js",  文件名
-    publicPath: 'build/'   公共路径，图片等打包后的路径是生成的文件名，需要添加公共路径来获得正确的路径
+    publicPath: 'build/'   公共路径，js里的图片等打包后的路径是生成的文件名，需要添加公共路径来获得正确的路径
   },
   watch: true,    是否监听，true监听,false不监听
   devtool: "source-map",    报错报到源代码里
@@ -61,7 +68,14 @@ module.exports = {   模块接口
         })
       },  把css单独生成文件,添加css前缀
       { test: /\.(jpe?g|png)$/, use: "file-loader" },  打包图片
-      { test: /\.less$/,use: [ 'style-loader', 'postcss-loader','less-loader' ] }  less
+      { test: /\.less$/,use: [ 'style-loader', 'postcss-loader','less-loader' ] },  less，先执行后面的loader
+      {
+        test: require.resolve('jquery'),  匹配jquery，暴露成全局变量$
+        use: [{
+          loader: 'expose-loader',
+          options: '$'
+        }]
+      }
     ]
   },
   plugins:[  插件
@@ -106,6 +120,63 @@ module.exports = {
 #### 自动生成一个html
 装包  
 `npm install --save-dev html-webpack-plugin`
+
+### 开发环境配置
+装包 `npm i -D webpack-dev-server`  
+#### 自动打开浏览器  
+装包 `npm i -D open-browser-webpack-plugin`  
+
+#### 建立webpack-dev-server.js文件  
+```
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const OpenBrowserPlygin = require('open-browser-webpack-plugin');
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname,"build"),
+    filename: "bundle.[hash:5].js"
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "build"),   静态文件服务器，build下的文件都可以通过localhost:3000/名称 访问到
+    compress: true,   一切服务都启用gzip 压缩
+    port: 3000,   地址由8080改为3000
+    historyApiFallback: true   不管访问什么都返回index.html
+  },
+  devtool: "source-map",
+  module: {
+    rules: [
+      { test: /\.js$/, exclude: /node_modules/, use: "babel-loader" },
+      {test: /\.css$/,use: ['style-loader', 'postcss-loader']},
+      { test: /\.less$/,use: ['style-loader', 'postcss-loader', 'less-loader']},
+      { test: /\.(jpe?g|png)$/, use: "file-loader" },
+      {
+        test: require.resolve('jquery'),
+        use: [{
+          loader: 'expose-loader',
+          options: '$'
+        }]
+      }
+    ]
+  },
+  plugins:[
+    new HtmlWebpackPlugin({
+      template: 'template/index.html'
+    }),
+    new OpenBrowserPlygin({     自动打开浏览器
+      url: 'http://localhost:3000'
+    })
+  ]
+}
+
+```
+在package.json配置
+"scripts": {
+  "start": "./node_modules/.bin/webpack-dev-server --config webpack-dev-server"
+}
+
 
 ### css预处理器
 `less` 文件后缀是less  

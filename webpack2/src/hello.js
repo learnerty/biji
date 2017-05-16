@@ -1,3 +1,4 @@
-var aa = 'tian'
-
-module.exports = aa;
+function aa(){
+  console.log($);
+}
+export default aa
